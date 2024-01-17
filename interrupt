@@ -1,0 +1,34 @@
+// main.c file--------------
+
+#include <xc.h>
+#include "config1.h"
+
+// Function Declarations:
+// - Defined in this file:
+
+void initSysPins(void);
+// - Defined in other file(s):
+
+void usrTask_CheckInputRB0(void);
+void usrTask_CheckInputRB1(void);
+
+void main(void)
+{
+    initSysPins(); // Initialise the port pins
+    PORTA = 0b00000000; // Turn off both LEDs at RA0 and RA1
+    
+    while(1) 
+    {
+        usrTask_CheckInputRB0(); // Calls function to check RB0
+        usrTask_CheckInputRB1(); // Calls function to check RB1
+    }
+}
+
+void initSysPins(void)
+{
+    ANSELA = 0;
+    ANSELB = 0;
+    TRISA = 0b11110000;
+    TRISB = 0b11111111;
+}
+
